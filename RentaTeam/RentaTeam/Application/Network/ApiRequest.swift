@@ -9,24 +9,18 @@
 import Foundation
 import UIKit
 
-enum ApiError: Error {
-    case noData
-}
-
 class ApiRequest {
     static let shared = ApiRequest()
     private let appKey = "267e1d2e3e6ccff9a44b6bdae269b3b4"
     private let secret = "58a1cd070bbe192e41668cbd46946bf6"
-    
-    public func getImage(code: Int, completion: @escaping (Result<UIImage, Error>) -> Void) {
+
+    public func getImage(code: Int, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let urlImage = URL(string: "https://http.cat/\(code)") else {
             print("Error: Wrong mage url.")
             completion(.failure(ApiError.noData))
             return
         }
-        
         let dataTask = URLSession.shared.dataTask(with: urlImage) { data, response, error in
-            print(response)
             guard
                 error == nil,
                 (response as? HTTPURLResponse)?.statusCode == 200,
@@ -36,12 +30,7 @@ class ApiRequest {
                     completion(.failure(ApiError.noData))
                     return
             }
-            guard let image = UIImage(data: data) else {
-                print("Error: Image was not created.")
-                completion(.failure(ApiError.noData))
-                return
-            }
-            completion(.success(image))
+            completion(.success(data))
         }
         dataTask.resume()
     }

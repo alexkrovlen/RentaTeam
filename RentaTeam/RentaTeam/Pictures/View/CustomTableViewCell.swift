@@ -12,7 +12,6 @@ class CustomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imageCell: UIImageView!
     @IBOutlet weak var descLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var dateLabel: UILabel!
     
     override func awakeFromNib() {

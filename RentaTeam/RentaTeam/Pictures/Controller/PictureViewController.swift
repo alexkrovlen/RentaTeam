@@ -22,7 +22,7 @@ class PictureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.title = "Cat"
+        navigationItem.title = desc == "Status Code: 404" ? "Error" : "Cat"
         getInformation()
         imageSizeSetting()
     }
